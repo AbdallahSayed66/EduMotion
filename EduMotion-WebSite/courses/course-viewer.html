@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>عرض الكورس</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+    .course-container { background: white; padding: 20px; border-radius: 10px; max-width: 800px; margin: auto; }
+    .course-container img { max-width: 100%; border-radius: 10px; }
+    .course-title { font-size: 24px; margin-top: 20px; }
+    .course-description { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="course-container">
+    <img id="courseImage" src="" alt="Course Image">
+    <h1 id="courseTitle" class="course-title"></h1>
+    <p id="courseDescription" class="course-description"></p>
+    <p><strong>السعر:</strong> <span id="coursePrice"></span> جنيه</p>
+    <div id="courseContent"><p>— لا يوجد محتوى بعد —</p></div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const courseId = params.get("courseId");
+
+    const allCourses = JSON.parse(localStorage.getItem("courses") || "[]");
+    const course = allCourses.find(c => c.id == courseId);
+
+    if (course) {
+      document.getElementById("courseImage").src = course.image;
+      document.getElementById("courseTitle").textContent = course.title;
+      document.getElementById("courseDescription").textContent = course.description;
+      document.getElementById("coursePrice").textContent = course.price;
+    } else {
+      document.querySelector(".course-container").innerHTML = "<h2>لم يتم العثور على الكورس</h2>";
+    }
+  </script>
+</body>
+</html>

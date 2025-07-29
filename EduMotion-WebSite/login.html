@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduMotion - تسجيل الدخول</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif;
+    }
+    body {
+      background: linear-gradient(to bottom right, #eef2ff, #ffffff);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .navbar {
+      background: #4338ca;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .navbar-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .navbar button {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      transition: 0.3s;
+    }
+
+    .login-btn {
+      background: white;
+      color: #4338ca;
+    }
+
+    .login-btn:hover {
+      background: #e0e7ff;
+    }
+
+    .signup-btn {
+      background: #6366f1;
+      color: white;
+    }
+
+    .signup-btn:hover {
+      background: #4f46e5;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 2rem 1rem;
+    }
+
+    .bg-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .icon {
+      position: absolute;
+      font-size: 2.5rem;
+      opacity: 0.1;
+      animation: moveAround 20s linear infinite;
+    }
+
+    @keyframes moveAround {
+      0%   { transform: translate(0, 0) rotate(0deg); }
+      25%  { transform: translate(100px, -50px) rotate(90deg); }
+      50%  { transform: translate(-100px, 100px) rotate(180deg); }
+      75%  { transform: translate(50px, 150px) rotate(270deg); }
+      100% { transform: translate(0, 0) rotate(360deg); }
+    }
+
+    .login-box {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      z-index: 1;
+      animation: fadeIn 1s ease;
+    }
+
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #4338ca;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      border: none;
+      border-bottom: 2px solid #ccc;
+      padding: 0.5rem 0;
+      background: transparent;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .form-group label {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 0.85rem;
+      color: #666;
+      pointer-events: none;
+      transition: 0.2s ease;
+    }
+
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label {
+      top: -1rem;
+      font-size: 0.75rem;
+      color: #4338ca;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #4338ca;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .link {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: #4338ca;
+      cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>EduMotion</h1> 
+    <div class="navbar-buttons">
+      <button class="login-btn" onclick="switchToLogin()">تسجيل الدخول</button>
+      <button class="signup-btn" onclick="switchToRegister()">تسجيل حساب</button>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="bg-animation" id="bgContainer"></div>
+    <div class="login-box" id="authBox">
+      <!-- سيتم تعبئته بالجافاسكربت -->
+    </div>
+  </div>
+
+  <script>
+    // أيقونات الخلفية المتحركة
+    const icons = ['📘', '🧪', '📐', '🧠', '📖', '🔬', '🧬', '📊', '🎓', '📝'];
+    const bgContainer = document.getElementById('bgContainer');
+    for (let i = 0; i < 30; i++) {
+      const icon = document.createElement('div');
+      icon.className = 'icon';
+      icon.innerText = icons[Math.floor(Math.random() * icons.length)];
+      icon.style.top = Math.random() * 100 + '%';
+      icon.style.left = Math.random() * 100 + '%';
+      icon.style.animationDuration = (10 + Math.random() * 20) + 's';
+      icon.style.fontSize = (2 + Math.random() * 3) + 'rem';
+      bgContainer.appendChild(icon);
+    }
+
+    // تسجيل الدخول
+    function switchToLogin() {
+      const box = document.getElementById('authBox');
+      box.innerHTML = `
+        <h2>تسجيل الدخول</h2>
+        <form onsubmit="event.preventDefault(); alert('تم تسجيل الدخول!');">
+          <div class='form-group'>
+            <input type='email' placeholder=' ' required />
+            <label>البريد الإلكتروني</label>
+          </div>
+          <div class='form-group'>
+            <input type='password' placeholder=' ' required />
+            <label>كلمة المرور</label>
+          </div>
+          <button type="submit">دخول</button>
+        </form>
+        <div class="link" onclick="switchToRegister()">ليس لديك حساب؟ أنشئ حساب جديد</div>
+      `;
+    }
+
+    // إنشاء حساب
+    function switchToRegister() {
+      const box = document.getElementById('authBox');
+      box.innerHTML = `
+        <h2>إنشاء حساب جديد</h2>
+        <form onsubmit="event.preventDefault(); alert('تم إنشاء الحساب!');">
+          <div class='form-group'><input type='text' placeholder=' ' required/><label>اسم الطالب</label></div>
+          <div class='form-group'><input type='text' placeholder=' ' required/><label>اسم ولي الأمر</label></div>
+          <div class='form-group'><input type='text' placeholder=' ' required/><label>رقم الطالب</label></div>
+          <div class='form-group'><input type='text' placeholder=' ' required/><label>رقم ولي الأمر</label></div>
+          <div class='form-group'><input type='email' placeholder=' ' required/><label>البريد الإلكتروني</label></div>
+          <div class='form-group'><input type='password' placeholder=' ' required/><label>كلمة المرور</label></div>
+          <button type="submit">إنشاء حساب</button>
+        </form>
+        <div class="link" onclick="switchToLogin()">لديك حساب بالفعل؟ تسجيل الدخول</div>
+      `;
+    }
+
+    // عرض نموذج تسجيل الدخول أولاً
+    switchToLogin();
+  </script>
+</body>
+</html>
